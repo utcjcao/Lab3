@@ -4,36 +4,54 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+// import java.util.Locale;
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-
+    private Map<String, String> codeToCountryMap = new HashMap<>();
+    private Map<String, String> countryToCodeMap = new HashMap<>();
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
      */
+
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
-
     /**
      * Overloaded constructor which allows us to specify the filename to load the country code data from.
      * @param filename the name of the file in the resources folder to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
+
     public CountryCodeConverter(String filename) {
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+            for (int i = 1; i < lines.size(); i++) {
+                String[] data = lines.get(i).split("\\s+");
+                StringBuilder countryName = new StringBuilder();
+                int counter = 0;
+                while (!(data[counter].equals(data[counter].toUpperCase()))) {
+                    countryName.append(data[counter]);
+                    countryName.append(" ");
+                    counter++;
+                }
+                String finalCountryName = countryName.toString();
+                finalCountryName = finalCountryName.substring(0, finalCountryName.length() - 1);
+                counter += 1;
+                String alpha3 = data[counter];
+                System.out.println(alpha3);
+                codeToCountryMap.put(finalCountryName, alpha3);
+                countryToCodeMap.put(alpha3, finalCountryName);
+            }
 
             // TODO Task: use lines to populate the instance variable(s)
 
@@ -51,7 +69,7 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        return codeToCountryMap.get(code);
     }
 
     /**
@@ -61,7 +79,7 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        return countryToCodeMap.get(country);
     }
 
     /**
@@ -70,6 +88,6 @@ public class CountryCodeConverter {
      */
     public int getNumCountries() {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryToCodeMap.size();
     }
 }
