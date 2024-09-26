@@ -6,14 +6,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
  * data from a JSON file. The data is read in once each time an instance of this class is constructed.
  */
 public class JSONTranslator implements Translator {
+
+    private final JSONArray jsonArray;
+    private Map<String, JSONObject> jsonmap = new HashMap<>();
 
     // TODO Task: pick appropriate instance variables for this class
 
@@ -26,6 +32,7 @@ public class JSONTranslator implements Translator {
 
     /**
      * Constructs a JSONTranslator populated using data from the specified resources file.
+     *
      * @param filename the name of the file in resources to load the data from
      * @throws RuntimeException if the resource file can't be loaded properly
      */
@@ -35,13 +42,16 @@ public class JSONTranslator implements Translator {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
-            JSONArray jsonArray = new JSONArray(jsonString);
-
+            this.jsonArray = new JSONArray(jsonString);
+            this.jsonmap = new HashMap<>();
+            for (int i = 0; i < this.jsonArray.length(); i++) {
+                JSONObject country = jsonArray.getJSONObject(i);
+                jsonmap.put(country.getString("alpha3"), country);
+            }
             // TODO Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
-        }
-        catch (IOException | URISyntaxException ex) {
+        } catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -50,19 +60,32 @@ public class JSONTranslator implements Translator {
     public List<String> getCountryLanguages(String country) {
         // TODO Task: return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        List languages = new ArrayList();
+        for (String key : jsonmap.get(country).keySet()) {
+            languages.add(key);
+        }
+        languages.remove("id");
+        languages.remove("alpha2");
+        languages.remove("alpha3");
+        return languages;
     }
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
-        //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        List countries = new ArrayList();
+        for (String key : jsonmap.keySet()) {
+            countries.add(key);
+        }
+        return countries;
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
+        if (jsonmap.containsKey(country)) {
+            if (jsonmap.get(country).has(language)) {
+                return jsonmap.get(country).getString(language);
+            }
+        }
         return null;
     }
 }
