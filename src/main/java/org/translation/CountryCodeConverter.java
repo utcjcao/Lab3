@@ -43,8 +43,6 @@ public class CountryCodeConverter {
                 countryToCodeMap.put(jsonObject.getString("Alpha-3 code"), jsonObject.getString("Country"));
             }
 
-            // TODO Task: use lines to populate the instance variable(s)
-
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -58,7 +56,6 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return codeToCountryMap.get(code);
     }
 
@@ -68,7 +65,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return countryToCodeMap.get(country);
     }
 
@@ -77,7 +73,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
         return countryToCodeMap.size();
     }
 }
