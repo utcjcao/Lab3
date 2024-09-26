@@ -1,7 +1,5 @@
 package org.translation;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -36,11 +34,16 @@ public class LanguageCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
+
             for (int i = 1; i < lines.size(); i++) {
-                JSONObject jsonObject = new JSONObject(lines.get(i));
-                codeToLanguageMap.put(jsonObject.getString("Language Names"), jsonObject.getString("Code"));
-                languageToCodeMap.put(jsonObject.getString("Code"), jsonObject.getString("Language Names"));
+                // Split the line by tab characters
+                String[] columns = lines.get(i).split("\t");
+                String languageName = columns[0];
+                String code = columns[1];
+                languageToCodeMap.put(languageName, code);
+                codeToLanguageMap.put(code, languageName);
             }
+
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -54,6 +57,7 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
+
         return codeToLanguageMap.get(code);
     }
 
