@@ -14,8 +14,9 @@ import org.json.JSONObject;
 public class JSONTranslationExample {
 
     public static final int CANADA_INDEX = 30;
-    public static final int AFGANISTAN_INDEX = 0;
+    public static final int AFGHANISTAN_INDEX = 0;
     public static final int GERMANY_INDEX = 63;
+    public static final int MALAYSIA_INDEX = 104;
     private final JSONArray jsonArray;
 
     // Note: CheckStyle is configured so that we are allowed to omit javadoc for constructors
@@ -41,14 +42,19 @@ public class JSONTranslationExample {
         return canada.getString("es");
     }
 
-    public String getAfganistanCountryNameArabicTranslation() {
-        JSONObject canada = jsonArray.getJSONObject(AFGANISTAN_INDEX);
-        return canada.getString("ar");
+    public String getAfghanistanCountryNameArabicTranslation() {
+        JSONObject afghanistan = jsonArray.getJSONObject(AFGHANISTAN_INDEX);
+        return afghanistan.getString("ar");
     }
 
     public String getGermanyCountryNameGermanTranslation() {
         JSONObject germany = jsonArray.getJSONObject(GERMANY_INDEX);
         return germany.getString("de");
+    }
+
+    public String getMalaysiaCountryNameJapaneseTranslation() {
+        JSONObject malaysia = jsonArray.getJSONObject(MALAYSIA_INDEX);
+        return malaysia.getString("ja");
     }
 
     /**
@@ -75,8 +81,9 @@ public class JSONTranslationExample {
         JSONTranslationExample jsonTranslationExample = new JSONTranslationExample();
 
         System.out.println(jsonTranslationExample.getCanadaCountryNameSpanishTranslation());
-        System.out.println(jsonTranslationExample.getAfganistanCountryNameArabicTranslation());
+        System.out.println(jsonTranslationExample.getAfghanistanCountryNameArabicTranslation());
         System.out.println(jsonTranslationExample.getGermanyCountryNameGermanTranslation());
+        System.out.println(jsonTranslationExample.getMalaysiaCountryNameJapaneseTranslation());
         String translation = jsonTranslationExample.getCountryNameTranslation("can", "es");
         System.out.println(translation);
     }
