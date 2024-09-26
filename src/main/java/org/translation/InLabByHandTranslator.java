@@ -21,17 +21,15 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
+    public static final String CANADA = "can";
+
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Checkstyle: The String "can" appears 4 times in the file.
         if (CANADA.equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh"));
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "ko"));
         }
         return new ArrayList<>();
     }
-
-    // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -65,6 +63,12 @@ public class InLabByHandTranslator implements Translator {
         }
         else if ("zh".equals(language)) {
             translate = "加拿大";
+        }
+        else if ("es".equals(language)) {
+            translate = "Canadá";
+        }
+        else if ("ko".equals(language)) {
+            translate = "캐나다";
         }
         else {
             translate = null;
