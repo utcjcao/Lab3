@@ -19,7 +19,7 @@ import org.json.JSONObject;
 public class JSONTranslator implements Translator {
 
     private final JSONArray jsonArray;
-    private Map<String, JSONObject> jsonmap = new HashMap<>();
+    private Map<String, JSONObject> jsonmap;
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -49,13 +49,13 @@ public class JSONTranslator implements Translator {
 
         }
         catch (IOException | URISyntaxException ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalArgumentException("filename unable to be read");
         }
     }
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        List languages = new ArrayList();
+        List<String> languages = new ArrayList<>();
         for (String key : jsonmap.get(country).keySet()) {
             languages.add(key);
         }
@@ -67,7 +67,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountries() {
-        List countries = new ArrayList();
+        List <String> countries = new ArrayList<>();
         for (String key : jsonmap.keySet()) {
             countries.add(key);
         }
@@ -76,10 +76,8 @@ public class JSONTranslator implements Translator {
 
     @Override
     public String translate(String country, String language) {
-        if (jsonmap.containsKey(country)) {
-            if (jsonmap.get(country).has(language)) {
-                return jsonmap.get(country).getString(language);
-            }
+        if (jsonmap.containsKey(country) && jsonmap.get(country).has(language)) {
+            return jsonmap.get(country).getString(language);
         }
         return null;
     }
