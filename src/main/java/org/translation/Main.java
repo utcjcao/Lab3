@@ -44,21 +44,17 @@ public class Main {
             }
 
             CountryCodeConverter countryConverter = new CountryCodeConverter();
+            String countryCode = countryConverter.fromCountry(country).toLowerCase();
 
-            String language = promptForLanguage(translator, countryConverter.fromCountry(country));
+            String language = promptForLanguage(translator, countryCode);
             if (q.equals(language)) {
                 break;
             }
-            // TODO Task: Once you switch promptForLanguage so that it returns the language
-            //            name rather than the 2-letter language code, you will need to
-            //            convert it back to its 2-letter language code when calling translate.
-            //            Note: you should use the actual names in the message printed below though,
-            //            since the user will see the displayed message.
 
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
+            String languageCode = languageConverter.fromLanguage(language);
 
-            System.out.println(country + " in " + language + " is "
-                    + translator.translate(country, languageConverter.fromLanguage(language)));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();

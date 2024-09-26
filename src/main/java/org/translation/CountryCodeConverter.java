@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 // import java.util.Locale;
 /**
  * This class provides the service of converting country codes to their names.
@@ -37,13 +35,17 @@ public class CountryCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-            for (int i = 1; i < lines.size(); i++) {
-                JSONObject jsonObject = new JSONObject(lines.get(i));
-                codeToCountryMap.put(jsonObject.getString("Country"), jsonObject.getString("Alpha-3 code"));
-                countryToCodeMap.put(jsonObject.getString("Alpha-3 code"), jsonObject.getString("Country"));
-            }
 
+            for (int i = 1; i < lines.size(); i++) {
+                // Split the line by tab characters
+                String[] columns = lines.get(i).split("\t");
+                String country = columns[0];
+                String alpha3 = columns[2].toUpperCase();
+                countryToCodeMap.put(country, alpha3);
+                codeToCountryMap.put(alpha3, country);
+            }
         }
+
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
@@ -56,7 +58,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return codeToCountryMap.get(code);
+        return codeToCountryMap.get(code.toUpperCase());
     }
 
     /**
@@ -65,6 +67,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
+        System.out.println();
         return countryToCodeMap.get(country);
     }
 
