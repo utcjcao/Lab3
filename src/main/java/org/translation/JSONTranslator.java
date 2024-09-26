@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +20,6 @@ public class JSONTranslator implements Translator {
 
     private final JSONArray jsonArray;
     private Map<String, JSONObject> jsonmap = new HashMap<>();
-
-    // TODO Task: pick appropriate instance variables for this class
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
@@ -48,18 +46,15 @@ public class JSONTranslator implements Translator {
                 JSONObject country = jsonArray.getJSONObject(i);
                 jsonmap.put(country.getString("alpha3"), country);
             }
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
 
-        } catch (IOException | URISyntaxException ex) {
+        }
+        catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
-        //            but make sure there is no aliasing to a mutable object
         List languages = new ArrayList();
         for (String key : jsonmap.get(country).keySet()) {
             languages.add(key);
