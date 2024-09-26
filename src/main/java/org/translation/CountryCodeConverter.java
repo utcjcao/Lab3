@@ -1,5 +1,7 @@
 package org.translation;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -36,21 +38,9 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
             for (int i = 1; i < lines.size(); i++) {
-                String[] data = lines.get(i).split("\\s+");
-                StringBuilder countryName = new StringBuilder();
-                int counter = 0;
-                while (!(data[counter].equals(data[counter].toUpperCase()))) {
-                    countryName.append(data[counter]);
-                    countryName.append(" ");
-                    counter++;
-                }
-                String finalCountryName = countryName.toString();
-                finalCountryName = finalCountryName.substring(0, finalCountryName.length() - 1);
-                counter += 1;
-                String alpha3 = data[counter];
-                System.out.println(alpha3);
-                codeToCountryMap.put(finalCountryName, alpha3);
-                countryToCodeMap.put(alpha3, finalCountryName);
+                JSONObject jsonObject = new JSONObject(lines.get(i));
+                codeToCountryMap.put(jsonObject.getString("Country"), jsonObject.getString("Alpha-3 code"));
+                countryToCodeMap.put(jsonObject.getString("Alpha-3 code"), jsonObject.getString("Country"));
             }
 
             // TODO Task: use lines to populate the instance variable(s)
