@@ -42,16 +42,28 @@ public class JSONTranslationExample {
         return canada.getString("es");
     }
 
+    /**
+     * Returns the Arabic translation of Afghanistan.
+     * @return the Arabic translation of Afghanistan
+     */
     public String getAfghanistanCountryNameArabicTranslation() {
         JSONObject afghanistan = jsonArray.getJSONObject(AFGHANISTAN_INDEX);
         return afghanistan.getString("ar");
     }
 
+    /**
+     * Returns the German translation of Germany.
+     * @return the German translation of Germany
+     */
     public String getGermanyCountryNameGermanTranslation() {
         JSONObject germany = jsonArray.getJSONObject(GERMANY_INDEX);
         return germany.getString("de");
     }
 
+    /**
+     * Returns the Japanese translation of Malaysia.
+     * @return the Japanese translation of Malaysia
+     */
     public String getMalaysiaCountryNameJapaneseTranslation() {
         JSONObject malaysia = jsonArray.getJSONObject(MALAYSIA_INDEX);
         return malaysia.getString("ja");
