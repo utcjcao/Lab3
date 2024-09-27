@@ -68,7 +68,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        System.out.println();
         return countryToCodeMap.get(country);
     }
 
