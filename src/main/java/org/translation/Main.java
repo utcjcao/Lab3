@@ -14,6 +14,7 @@ import java.util.Scanner;
  * - at any time, the user can type quit to quit the program<br/>
  */
 public class Main {
+    private static String newline = "\n";
 
     /**
      * This is the main entry point of our Translation System!<br/>
@@ -56,7 +57,7 @@ public class Main {
 
             System.out.print(country + " in " + language + " is " + translator.translate(countryCode, languageCode)
                     + "\n");
-            System.out.print("Press enter to continue or quit to exit.\n");
+            System.out.print("Press enter to continue or quit to exit." + newline);
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
@@ -82,12 +83,12 @@ public class Main {
         StringBuilder countriesStr = new StringBuilder();
         // print countries line by line
         for (int i = 0; i < countries.size() - 1; i++) {
-            countriesStr.append(countries.get(i)).append("\n");
+            countriesStr.append(countries.get(i)).append(newline);
         }
         countriesStr.append(countries.get(countries.size() - 1));
 
-        System.out.print(countriesStr + "\n");
-        System.out.print("select a country from above:\n");
+        System.out.print(countriesStr + newline);
+        System.out.print("select a country from above:" + newline);
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();
@@ -110,12 +111,12 @@ public class Main {
         // print languages line by line
         StringBuilder languageStr = new StringBuilder();
         for (int i = 0; i < languages.size() - 1; i++) {
-            languageStr.append(languages.get(i)).append("\n");
+            languageStr.append(languages.get(i)).append(newline);
         }
         languageStr.append(languages.get(languages.size() - 1));
 
-        System.out.print(languageStr + "\n");
-        System.out.print("select a language from above:\n");
+        System.out.print(languageStr + newline);
+        System.out.print("select a language from above:" + newline);
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();
