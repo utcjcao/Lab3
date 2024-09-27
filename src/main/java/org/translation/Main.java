@@ -54,7 +54,7 @@ public class Main {
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             String languageCode = languageConverter.fromLanguage(language);
 
-            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode) + "\n");
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -78,11 +78,14 @@ public class Main {
         // sort country names alphabetically
         Collections.sort(countries);
 
+        StringBuilder countriesStr = new StringBuilder();
         // print countries line by line
-        for (String country : countries) {
-            System.out.println(country);
+        for (int i = 0; i < countries.size() - 1; i++) {
+            countriesStr.append(countries.get(i)).append("\n");
         }
+        countriesStr.append(countries.get(countries.size() - 1));
 
+        System.out.println(countriesStr);
         System.out.println("select a country from above:");
 
         Scanner s = new Scanner(System.in);
@@ -92,10 +95,6 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
-
-        // TODO Task: replace the line below so that we sort the languages alphabetically
-        //  and print them out; one per line
-        // TODO Task: convert the language codes to the actual language names before sorting
         List<String> languages = translator.getCountryLanguages(country);
         LanguageCodeConverter languageConverter = new LanguageCodeConverter();
 
@@ -108,10 +107,13 @@ public class Main {
         Collections.sort(languages);
 
         // print languages line by line
-        for (String language : languages) {
-            System.out.println(language);
+        StringBuilder languageStr = new StringBuilder();
+        for (int i = 0; i < languages.size() - 1; i++) {
+            languageStr.append(languages.get(i)).append("\n");
         }
+        languageStr.append(languages.get(languages.size() - 1));
 
+        System.out.println(languageStr);
         System.out.println("select a language from above:");
 
         Scanner s = new Scanner(System.in);

@@ -44,6 +44,7 @@ public class CountryCodeConverter {
                 countryToCodeMap.put(country, alpha3);
                 codeToCountryMap.put(alpha3, country);
             }
+
         }
 
         catch (IOException | URISyntaxException ex) {
