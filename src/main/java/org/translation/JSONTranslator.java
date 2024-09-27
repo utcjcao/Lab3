@@ -32,7 +32,7 @@ public class JSONTranslator implements Translator {
      * Constructs a JSONTranslator populated using data from the specified resources file.
      *
      * @param filename the name of the file in resources to load the data from
-     * @throws RuntimeException if the resource file can't be loaded properly
+     * @throws IllegalArgumentException if the resource file can't be loaded properly
      */
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
@@ -67,7 +67,7 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountries() {
-        List <String> countries = new ArrayList<>();
+        List<String> countries = new ArrayList<>();
         for (String key : jsonmap.keySet()) {
             countries.add(key);
         }

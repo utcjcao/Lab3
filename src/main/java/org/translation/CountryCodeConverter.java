@@ -44,6 +44,7 @@ public class CountryCodeConverter {
                 countryToCodeMap.put(country, alpha3);
                 codeToCountryMap.put(alpha3, country);
             }
+
         }
 
         catch (IOException | URISyntaxException ex) {
@@ -67,7 +68,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        System.out.println();
         return countryToCodeMap.get(country);
     }
 
