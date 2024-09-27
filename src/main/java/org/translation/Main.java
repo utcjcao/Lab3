@@ -54,8 +54,9 @@ public class Main {
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             String languageCode = languageConverter.fromLanguage(language);
 
-            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
-            System.out.println("Press enter to continue or quit to exit.");
+            System.out.print(country + " in " + language + " is " + translator.translate(countryCode, languageCode)
+                    + "\n");
+            System.out.print("Press enter to continue or quit to exit.\n");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
 
@@ -85,8 +86,8 @@ public class Main {
         }
         countriesStr.append(countries.get(countries.size() - 1));
 
-        System.out.println(countriesStr);
-        System.out.println("select a country from above:");
+        System.out.print(countriesStr + "\n");
+        System.out.print("select a country from above:\n");
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();
@@ -113,8 +114,8 @@ public class Main {
         }
         languageStr.append(languages.get(languages.size() - 1));
 
-        System.out.println(languageStr);
-        System.out.println("select a language from above:");
+        System.out.print(languageStr + "\n");
+        System.out.print("select a language from above:\n");
 
         Scanner s = new Scanner(System.in);
         return s.nextLine();
